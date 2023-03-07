@@ -22,4 +22,5 @@ if __name__ == "__main__":
     Thread(target=recive).start()
 
     while True:
-        pass
+        message = input("> ")
+        send(message)
