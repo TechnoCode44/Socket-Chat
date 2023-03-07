@@ -10,4 +10,9 @@ def client_handler(client: socket, clients_data, clients):
         return loads(client.recv(data_length))
     
     clients_data["Name"] = recive()
+    send_all({
+        "Name": "Server",
+        "Message": f"{clients_data['Name']} has joined the chat"
+    })
+    
     client.close()
