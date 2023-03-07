@@ -1,11 +1,13 @@
 from socket import socket
 from pickle import dumps, loads
 
-def client_handler(client: socket, clients_data):
-    def send(data): # Sends encrypted data to client
-        client.send(dumps(data))
+def client_handler(client: socket, clients_data, clients):
+    def send_all(data): # Sends data to all clients
+        for client in clients:
+            client.send(dumps(data))
 
     def recive(data_length: int = 1024): # Decodes encrypted data recive from client
         return loads(client.recv(data_length))
     
+    clients_data["Name"] = recive()
     client.close()
