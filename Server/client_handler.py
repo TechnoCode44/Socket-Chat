@@ -14,5 +14,6 @@ def client_handler(client: socket, clients_data, clients):
         "Name": "Server",
         "Message": f"{clients_data['Name']} has joined the chat"
     })
-    
+
+    client.send(dumps(False))
     client.close()
