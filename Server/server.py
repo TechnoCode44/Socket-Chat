@@ -6,11 +6,9 @@ server = socket(AF_INET, SOCK_STREAM)
 server.bind(("0.0.0.0", 4000))
 server.listen()
 
-threads = []
 clients_data = []
 
 while True:
     client, address = server.accept()
     clients_data.append({})
-    threads.append(Thread(target=client_handler, args=(client, clients_data[-1])))
-    threads[-1].start()
+    Thread(target=client_handler, args=(client, clients_data[-1])).start()
