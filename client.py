@@ -27,5 +27,5 @@ if __name__ == "__main__":
     Thread(target=recive).start()
 
     while True:
-        message = input("> ")
+        message = input("")
         send(message)
