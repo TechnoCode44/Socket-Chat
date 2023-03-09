@@ -9,11 +9,12 @@ def send(data): # Sends encrypted data to server
     server.send(dumps(data))
 
 def recive(data_length: int = 1024): # Recives data from server and prints it
-    data = server.recv(data_length)
-    data = loads(data)
-    name = data["Name"]
-    message = data["Message"]
-    print(f"[{name}] {message}")
+    while True:
+        data = server.recv(data_length)
+        data = loads(data)
+        name = data["Name"]
+        message = data["Message"]
+        print(f"[{name}] {message}")
 
 if __name__ == "__main__":
     username = input("What would you like to be called? ")
