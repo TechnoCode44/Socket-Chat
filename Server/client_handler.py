@@ -17,7 +17,15 @@ def client_handler(client: socket, clients_data: bool, clients: list):
 
     connected = True
     while connected:
-        message = recive()
+        try:
+            message = recive()
+        except EOFError: # Unexpected disconnect (No data to pickle)
+            connected = False
+            send_all({
+                "Name": "Server",
+                "Message": f"{clients_data['Name']} has broken there computer (L)"
+            })
+            continue
         
         if message == "/quit": # Disconnect message
             connected = False
