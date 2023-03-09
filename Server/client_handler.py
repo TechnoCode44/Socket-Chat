@@ -21,6 +21,10 @@ def client_handler(client: socket, clients_data: bool, clients: list):
         
         if message == "/quit": # Disconnect message
             connected = False
+            send_all({
+                "Name": "Server",
+                "Message": f"{clients_data['Name']} has left the chat"
+            })
         else:
             send_all({
                 "Name": clients_data["Name"],
