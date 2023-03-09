@@ -15,5 +15,13 @@ def client_handler(client: socket, clients_data: bool, clients: list):
         "Message": f"{clients_data['Name']} has joined the chat"
     })
 
+    connected = True
+    while connected:
+        message = recive()
+        send_all({
+            "Name": clients_data["Name"],
+            "Message": message
+        })
+
     clients.remove(client)
     client.close()
