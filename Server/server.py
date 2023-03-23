@@ -13,4 +13,4 @@ while True:
     client, address = server.accept()
     clients_data.append({})
     clients.append(client)
-    Thread(target=client_handler, args=(client, clients_data[-1], clients)).start()
+    Thread(target=client_handler, args=(client, clients_data[-1], clients, address[0])).start()

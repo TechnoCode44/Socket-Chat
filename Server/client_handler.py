@@ -1,7 +1,7 @@
 from socket import socket
 from pickle import dumps, loads
 
-def client_handler(client: socket, clients_data: bool, clients: list):
+def client_handler(client: socket, clients_data: bool, clients: list, address):
     def send_all(data): # Sends data to all clients
         for client in clients:
             client.send(dumps(data))
@@ -10,10 +10,12 @@ def client_handler(client: socket, clients_data: bool, clients: list):
         return loads(client.recv(data_length))
     
     clients_data["Name"] = recive()
+    name = clients_data["Name"]
     send_all({
         "Name": "Server",
-        "Message": f"{clients_data['Name']} has joined the chat"
+        "Message": f"{name} has joined the chat"
     })
+    print(f"[{address}] {name} has connected")
 
     connected = True
     while connected:
@@ -23,7 +25,7 @@ def client_handler(client: socket, clients_data: bool, clients: list):
             connected = False
             send_all({
                 "Name": "Server",
-                "Message": f"{clients_data['Name']} has broken there computer (L)"
+                "Message": f"{name} has broken there computer (L)"
             })
             continue
         
@@ -31,7 +33,7 @@ def client_handler(client: socket, clients_data: bool, clients: list):
             connected = False
             send_all({
                 "Name": "Server",
-                "Message": f"{clients_data['Name']} has left the chat"
+                "Message": f"{name} has left the chat"
             })
         else:
             send_all({
@@ -39,5 +41,6 @@ def client_handler(client: socket, clients_data: bool, clients: list):
                 "Message": message
             })
 
+    print(f"[{address}] {name} disconnected")
     clients.remove(client)
     client.close()
