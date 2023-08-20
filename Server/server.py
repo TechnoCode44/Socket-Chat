@@ -1,6 +1,7 @@
 from socket import socket, AF_INET, SOCK_STREAM
 from threading import Thread
 from client_handler import *
+from Viewer import *
 
 clients = [] # List with clients object's
 clients_data = []
@@ -25,8 +26,9 @@ def viewer_reciver():
 
     while True:
         client, address = server.accept()
-        viewers.append(client)
-        Thread(target=client_handler, args=(client, viewers, address[0])).start()
+
+        viewer = Viewer(client, address[0], clients)
+        viewers.append(viewer)
 
 if __name__ == "__main__":
     Thread(target=client_reciver).start()
