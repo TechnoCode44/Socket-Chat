@@ -4,7 +4,7 @@ from threading import Thread
 from os import _exit as exit
 
 server = socket(AF_INET, SOCK_STREAM)
-server.connect(("192.168.1.79", 4000))
+server.connect(("localhost", 4000))
 
 def send(data): # Sends encrypted data to server
     server.send(dumps(data))
@@ -29,3 +29,6 @@ if __name__ == "__main__":
     while True:
         message = input("")
         send(message)
+
+        if message == "/quit":
+            exit()
