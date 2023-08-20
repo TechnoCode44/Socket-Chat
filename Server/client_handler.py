@@ -1,16 +1,15 @@
 from socket import socket
 from pickle import dumps, loads
 
-def client_handler(client: socket, clients_data: bool, clients: list, address):
-    def send_all(data): # Sends data to all clients
-        for client in clients:
-            client.send(dumps(data))
+def client_handler(client: socket, viewers: list, address):
+    def send_all(data): # Sends data to all viewers
+        for viewer in viewers:
+            viewer.send(dumps(data))
 
     def recive(data_length: int = 1024): # Decodes encrypted data recive from client
         return loads(client.recv(data_length))
     
-    clients_data["Name"] = recive()
-    name = clients_data["Name"]
+    name = recive()
     send_all({
         "Name": "Server",
         "Message": f"{name} has joined the chat"
@@ -37,10 +36,9 @@ def client_handler(client: socket, clients_data: bool, clients: list, address):
             })
         else:
             send_all({
-                "Name": clients_data["Name"],
+                "Name": name,
                 "Message": message
             })
 
     print(f"[{address}] {name} disconnected")
-    clients.remove(client)
     client.close()
