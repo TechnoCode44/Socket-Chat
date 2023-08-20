@@ -17,4 +17,4 @@ if __name__ == "__main__":
         send(message)
 
         if message == "/quit":
-            exit()
+            exit(0)
