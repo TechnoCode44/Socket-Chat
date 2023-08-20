@@ -1,6 +1,5 @@
 from socket import socket, AF_INET, SOCK_STREAM
-from pickle import dumps, loads
-from threading import Thread
+from pickle import dumps
 from os import _exit as exit
 
 server = socket(AF_INET, SOCK_STREAM)
