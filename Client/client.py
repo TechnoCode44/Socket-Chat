@@ -9,22 +9,9 @@ server.connect(("localhost", 4000))
 def send(data): # Sends encrypted data to server
     server.send(dumps(data))
 
-def recive(data_length: int = 1024): # Recives data from server and prints it
-    while True:
-        data = server.recv(data_length)
-        if not data: # Disconnected
-            exit(1)
-        else:
-            data = loads(data)
-            name = data["Name"]
-            message = data["Message"]
-            print(f"[{name}] {message}")
-
 if __name__ == "__main__":
     username = input("What would you like to be called? ")
     send(username)
-    
-    Thread(target=recive).start()
 
     while True:
         message = input("")
