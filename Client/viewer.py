@@ -8,6 +8,7 @@ server.connect(("localhost", 4001))
 if __name__ == "__main__":
     while True:
         data = server.recv(1024)
+        data = loads(data)
         if not data: # Disconnected
             exit(1)
         else:
